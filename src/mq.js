@@ -13,6 +13,7 @@ import {
   findIndex,
   propEq,
   nth,
+  curry,
 } from 'ramda';
 import { validateBreakpoints, validateConfig } from './validations';
 import { MEDIA_TYPES, UNITS } from './const';
@@ -20,6 +21,9 @@ import { appendUnit } from './utils';
 
 const SEPARATOR_VALUE = 0.01;
 const PREFIX = '@media';
+
+// const value = pxToEmOrRem(2, configObj);
+const pxToEmOrRem = curry((px, ({ baseFontSize })) => px / baseFontSize);
 
 const configure = (
   breakpoints,
@@ -41,8 +45,6 @@ const configure = (
   // ---------------------------------------------------------------------------
   // UTILS
   // ---------------------------------------------------------------------------
-
-  const pxToEmOrRem = px => px / baseFontSize;
 
   const unitIsRemOrEm = contains(__, [UNITS.EM, UNITS.REM]);
 
